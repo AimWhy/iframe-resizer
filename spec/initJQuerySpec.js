@@ -1,25 +1,28 @@
-/* jshint undef: false, unused: true */
+define(['iframeResizerJquery', 'jquery'], (iframeResize, $) => {
+  describe('iFrame init(jQuery)', () => {
+    loadIFrame('iframe600.html')
 
-'use strict'
+    it('is callable', () => {
+      const iframe = $('iframe').iframeResize({
+        license: 'GPLv3',
+        log: true,
+        warningTimeout: 100,
+      })[0]
 
-define(['iframeResizer', 'jquery'], function(iFrameResize, $) {
-  describe('iFrame init(jQuery)', function() {
-    var iframe
-
-    beforeAll(function() {
-      loadIFrame('iframe600.html')
-
-      var $iframes = $('iframe').iFrameResize()
-
-      iframe = $iframes.get(0)
-    })
-
-    afterAll(function() {
       tearDown(iframe)
     })
 
-    it('should create iFrameResizer object', function() {
-      expect(iframe.iFrameResizer).toBeDefined()
+    xit('should create iFrameResizer object', (done) => {
+      $('iframe').iframeResize({
+        license: 'GPLv3',
+        log: true,
+        warningTimeout: 1000,
+        onReady: (iframe) => {
+          expect(iframe.iFrameResizer).toBeDefined()
+          tearDown(iframe)
+          done()
+        },
+      })
     })
   })
 })

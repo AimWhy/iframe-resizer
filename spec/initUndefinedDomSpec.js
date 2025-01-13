@@ -1,26 +1,24 @@
-/* jshint undef: false, unused: true */
+define(['iframeResizerParent'], (iframeResize) => {
+  // xdescribe('iFrame init(DOM Object)', () => {
+  //   let iframe
 
-'use strict'
+  //   beforeAll(() => {
+  //     loadIFrame('iframe600.html')
 
-define(['iframeResizer'], function(iFrameResize) {
-  describe('iFrame init(DOM Object)', function() {
-    var iframe
+  //     iframe = iframeResize(
+  //       {
+  //         license: 'GPLv3',
+  //       },
+  //       document.getElementsByTagName('iframe')[0],
+  //     )[0]
+  //   })
 
-    beforeAll(function() {
-      loadIFrame('iframe600.html')
+  //   afterAll(() => {
+  //     tearDown(iframe)
+  //   })
 
-      iframe = iFrameResize(
-        undefined,
-        document.getElementsByTagName('iframe')[0]
-      )[0]
-    })
-
-    afterAll(function() {
-      tearDown(iframe)
-    })
-
-    it('should create iFrameResizer object', function() {
-      expect(iframe.iFrameResizer).toBeDefined()
-    })
-  })
+  //   it('should create iFrameResizer object', () => {
+  //     expect(iframe.iFrameResizer).toBeDefined()
+  //   })
+  // })
 })

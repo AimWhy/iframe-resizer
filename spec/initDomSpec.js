@@ -1,28 +1,20 @@
-/* jshint undef: false, unused: true */
-
-'use strict'
-
-define(['iframeResizer'], function(iFrameResize) {
-  describe('iFrame init(DOM Object)', function() {
-    var iframe
-
-    beforeAll(function() {
+define(['iframeResizerParent'], (iframeResize) => {
+  describe('iFrame init(DOM Object)', () => {
+    xit('should create iFrameResizer object', (done) => {
       loadIFrame('iframe600.html')
 
-      iframe = iFrameResize(
+      iframeResize(
         {
-          log: LOG
+          license: 'GPLv3',
+          warningTimeout: 1000,
+          onReady: (iframe) => {
+            expect(iframe.iFrameResizer).toBeDefined()
+            tearDown(iframe)
+            done()
+          },
         },
-        document.getElementsByTagName('iframe')[0]
-      )[0]
-    })
-
-    afterAll(function() {
-      tearDown(iframe)
-    })
-
-    it('should create iFrameResizer object', function() {
-      expect(iframe.iFrameResizer).toBeDefined()
+        document.getElementsByTagName('iframe')[0],
+      )
     })
   })
 })

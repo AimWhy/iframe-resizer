@@ -1,10 +1,13 @@
 .DS_Store
 .coveralls.yml
 node_modules
-bin
 example/test.html
 test/*.off
 npm-debug.log
 bower_components
 coverage*
 .idea
+js/*
+dist
+test-js
+example-test

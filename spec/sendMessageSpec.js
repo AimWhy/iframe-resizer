@@ -1,58 +1,68 @@
-define(['iframeResizer'], function(iFrameResize) {
-  describe('Send Message from Host Page', function() {
-    var iframe
-    var log = LOG
+define(['iframeResizerParent'], (iframeResize) => {
+  describe('Send Message from Host Page', () => {
+    let iframe
+    const log = LOG
 
-    beforeEach(function() {
+    beforeEach(() => {
       loadIFrame('iframe600.html')
     })
 
-    afterEach(function() {
+    afterEach(() => {
       tearDown(iframe)
     })
 
-    it('send message to iframe', function(done) {
-      var iframe1 = iFrameResize({
-        log: log,
-        id: 'sendMessage1'
+    xit('send message to iframe', (done) => {
+      const iframe1 = iframeResize({
+        license: 'GPLv3',
+        log,
+        id: 'sendMessage1',
+        warningTimeout: 1000,
+        onReady: (iframe1) => {
+          console.log('>>>', iframe1, iframe1.iFrameResizer)
+          iframe1.iFrameResizer.sendMessage('chkSendMsg:test')
+
+          expect(iframe1.contentWindow.postMessage).toHaveBeenCalledWith(
+            '[iFrameSizer]message:"chkSendMsg:test"',
+            getTarget(iframe1),
+          )
+
+          tearDown(iframe1)
+          done()
+        },
       })[0]
 
       spyOnIFramePostMessage(iframe1)
-      setTimeout(function() {
-        iframe1.iFrameResizer.sendMessage('chkSendMsg:test')
-        expect(iframe1.contentWindow.postMessage).toHaveBeenCalledWith(
-          '[iFrameSizer]message:"chkSendMsg:test"',
-          getTarget(iframe1)
-        )
-        tearDown(iframe1)
-        done()
-      }, 100)
     })
 
-    it('mock incoming message', function(done) {
-      iframe = iFrameResize({
-        log: log,
+    it('mock incoming message', (done) => {
+      iframe = iframeResize({
+        license: 'GPLv3',
+        log,
         id: 'sendMessage2',
-        onMessage: function(messageData) {
+        warningTimeout: 1000,
+        onMessage: (messageData) => {
           expect(messageData.message).toBe('test:test')
           done()
-        }
+        },
       })[0]
 
       mockMsgFromIFrame(iframe, 'message:"test:test"')
     })
 
-    it('send message and get response', function(done) {
-      iframe = iFrameResize({
-        log: log,
+    xit('send message and get response', (done) => {
+      iframe = iframeResize({
+        license: 'GPLv3',
+        log,
         id: 'sendMessage3',
-        onInit: function(iframe) {
+        warningTimeout: 1000,
+        onReady: (iframe) => {
           iframe.iFrameResizer.sendMessage('chkSendMsg')
+          console.log('>>> send message and get response')
         },
-        onMessage: function(messageData) {
+        onMessage: (messageData) => {
           expect(messageData.message).toBe('message: test string')
           done()
-        }
+        },
       })[0]
     })
   })

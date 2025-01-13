@@ -1,6 +1,22 @@
 # Version History
 
-- v4.3.3 [#1100](https://github.com/davidjbradshaw/iframe-resizer/issues/1100) Fix jQuery check [[Gabriel Grant](https://github.com/gabrielgrant)] 
+- v5.0.0 See [Release notes](https://github.com/davidjbradshaw/iframe-resizer/releases/) for future updates
+
+- v4.3.11 Fix bug in init message format that would effect interop with the future version 5.
+
+- v4.3.10 [#1229](https://github.com/davidjbradshaw/iframe-resizer/pull/1229) Fix close release destroyObserver [[Steve Hong](https://github.com/aniude)]
+
+- v4.3.9 Reduce package size
+
+- v4.3.7 Minor documentation updates and remove Bower package manager support
+
+- v4.3.6 Fix backwards compatablity of `module.exports`
+
+- v4.3.5 Fix path on `module.exports`
+
+- v4.3.4 [#990](https://github.com/davidjbradshaw/iframe-resizer/pull/990) Fix readDataFromParent mouseEvents Boolean to strBool [[Tony Living](https://github.com/tonyliving)]
+
+- v4.3.3 [#1100](https://github.com/davidjbradshaw/iframe-resizer/issues/1100) Fix jQuery check [[Gabriel Grant](https://github.com/gabrielgrant)]
 
 - v4.3.2 [#936](https://github.com/davidjbradshaw/iframe-resizer/issues/936) Allow max/min values for iFrame size to be set using units other than `px` [[Luke Murray](https://github.com/lukesmurray)]
 
@@ -48,7 +64,7 @@
 
 - v3.6.3 [#635](https://github.com/davidjbradshaw/iframe-resizer/pull/635) Fix issue with undefined ID [[Henry Schein](https://github.com/ddxdental)]. [#582](https://github.com/davidjbradshaw/iframe-resizer/pull/582) Add `omit` option to `scrolling` config [[Matt Ryan](https://github.com/mryand)]
 
-- v3.6.2 [#596](https://github.com/davidjbradshaw/iframe-resizer/pull/596) Add Passive Event Listener for Performance [[Henrik Vendelbo](https://github.com/thepian)]. [#613](https://github.com/davidjbradshaw/iframe-resizer/pull/613) Check if the iFrameResize function is attached to the prototype of jQuery [[Paul Antal](https://github.com/paul-antal)]. [#620](https://github.com/davidjbradshaw/iframe-resizer/pull/620) Fixed an issue where host page fires init before iframe receiver setup [[Mark Zhou](https://github.com/mrmarktyy)]. [#620](https://github.com/davidjbradshaw/iframe-resizer/pull/620) Add `removeListeners` method to better support React [[Khang Nguyen](https://github.com/khangiskhan)]
+- v3.6.2 [#596](https://github.com/davidjbradshaw/iframe-resizer/pull/596) Add Passive Event Listener for Performance [[Henrik Vendelbo](https://github.com/thepian)]. [#613](https://github.com/davidjbradshaw/iframe-resizer/pull/613) Check if the  function is attached to the prototype of jQuery [[Paul Antal](https://github.com/paul-antal)]. [#620](https://github.com/davidjbradshaw/iframe-resizer/pull/620) Fixed an issue where host page fires init before iframe receiver setup [[Mark Zhou](https://github.com/mrmarktyy)]. [#620](https://github.com/davidjbradshaw/iframe-resizer/pull/620) Add `removeListeners` method to better support React [[Khang Nguyen](https://github.com/khangiskhan)]
 
 - v3.6.1 [#576](https://github.com/davidjbradshaw/iframe-resizer/pull/576) Fix race condition caused by react-iframe-resizer removing the domNode and calling `close()`
 

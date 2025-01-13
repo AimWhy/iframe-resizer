@@ -1,31 +1,34 @@
-/* jshint undef: false, unused: true */
+define(['iframeResizerParent'], (iframeResize) => {
+  describe('iFrame init(Double)', () => {
+    let iframe
 
-'use strict'
-
-define(['iframeResizer'], function(iFrameResize) {
-  describe('iFrame init(Double)', function() {
-    var iframe
-
-    beforeAll(function() {
+    beforeAll(() => {
       loadIFrame('iframe600WithId.html')
-      //spyOn(console,'warn');
+      spyOn(console, 'warn')
     })
 
-    afterAll(function() {
+    afterAll(() => {
       tearDown(iframe)
     })
 
-    it('should create iFrameResizer object', function() {
+    it('should create iFrameResizer object', () => {
       window.parentIFrame = {
-        getId: function() {
-          return 'getIdTest'
-        }
+        getId: () => 'getIdTest',
       }
-      iframe = iFrameResize({ log: LOG }, '#doubleTest')[0]
-      iFrameResize({ log: LOG }, '#doubleTest')
-      expect(iframe.iFrameResizer).toBeDefined()
-      expect(console.warn).toHaveBeenCalled()
-      delete window.parentIFrame
+
+      iframe = iframeResize({ license: 'GPLv3' }, '#doubleTest')[0]
+      iframeResize(
+        {
+          license: 'GPLv3',
+          onReady: (done) => {
+            expect(iframe.iFrameResizer).toBeDefined()
+            expect(console.warn).toHaveBeenCalled()
+            delete window.parentIFrame
+            done()
+          },
+        },
+        '#doubleTest',
+      )
     })
   })
 })

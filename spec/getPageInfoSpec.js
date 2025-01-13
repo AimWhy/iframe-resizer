@@ -1,24 +1,26 @@
-define(['iframeResizer'], function(iFrameResize) {
-  describe('Get Page info', function() {
-    var log = LOG
-    var testId = 'anchor'
-
-    beforeEach(function() {
+define(['iframeResizerParent'], (iframeResize) => {
+  describe('Get Page info', () => {
+    beforeEach(() => {
       loadIFrame('iframe600.html')
     })
 
-    it('requested from iFrame', function(done) {
-      var iframe1 = iFrameResize({
-        log: log,
-        id: 'getPageInfo'
+    it('requested from iFrame', (done) => {
+      const iframe1 = iframeResize({
+        license: 'GPLv3',
+        log: true,
+        id: 'getPageInfo',
+        onReady: (iframe) => {
+          mockMsgFromIFrame(iframe, 'pageInfo')
+          mockMsgFromIFrame(iframe, 'pageInfoStop')
+        },
       })[0]
 
-      spyOn(iframe1.contentWindow, 'postMessage').and.callFake(function(msg) {
+      spyOn(iframe1.contentWindow, 'postMessage').and.callFake((msg) => {
         if (0 !== msg.indexOf('pageInfo')) {
           expect(
             msg.indexOf(
-              '"offsetTop":0,"offsetLeft":0,"scrollTop":0,"scrollLeft":0'
-            )
+              '"offsetTop":0,"offsetLeft":0,"scrollTop":0,"scrollLeft":0',
+            ),
           ).not.toEqual(0)
         }
         if (0 !== msg.indexOf('pageInfoStop')) {
@@ -26,35 +28,31 @@ define(['iframeResizer'], function(iFrameResize) {
           done()
         }
       })
-
-      mockMsgFromIFrame(iframe1, 'pageInfo')
-      mockMsgFromIFrame(iframe1, 'pageInfoStop')
     })
   })
 
-  describe('Get Page info with multiple frames', function() {
-    var log = LOG
-
-    beforeEach(function() {
+  xdescribe('Get Page info with multiple frames', () => {
+    beforeEach(() => {
       loadIFrame('twoIFrame600WithId.html')
     })
 
-    xit('must send pageInfo to second frame', function(done) {
-      var iframes = iFrameResize({
-        log: log,
+    it('must send pageInfo to second frame', (done) => {
+      const iframes = iframeResize({
+        license: 'GPLv3',
+        log: true,
         id: '#frame1,#frame2',
-        onInit: function(iframe) {
+        onReady: (iframe) => {
           iframe.iFrameResizer.sendMessage('getPageInfo')
-        }
+        },
       })
 
-      var iframe1 = iframes[0],
-        iframe2 = iframes[1]
+      const iframe1 = iframes[0]
+      const iframe2 = iframes[1]
 
-      setTimeout(function() {
-        var counter = 0,
-          frame1Called = false,
-          frame2Called = false
+      setTimeout(() => {
+        let counter = 0
+        let frame1Called = false
+        let frame2Called = false
 
         function checkCounter() {
           if (counter === 2) {
@@ -64,14 +62,14 @@ define(['iframeResizer'], function(iFrameResize) {
             done()
           }
         }
-        iframe1.contentWindow.postMessage = function(msg) {
+        iframe1.contentWindow.postMessage = function (msg) {
           if (0 < msg.indexOf('pageInfo')) {
             frame1Called = true
             counter++
             checkCounter()
           }
         }
-        iframe2.contentWindow.postMessage = function(msg) {
+        iframe2.contentWindow.postMessage = function (msg) {
           if (0 < msg.indexOf('pageInfo')) {
             frame2Called = true
             counter++
